@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\post;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -12,7 +13,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::all();
+
+        return Inertia::render('Post/Index', ['posts' => $posts]);
+
+
     }
 
     /**
@@ -20,7 +25,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Post/Create');
+
     }
 
     /**
@@ -28,7 +34,16 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $post = new Post();
+        $post->title = $request['title'];
+        $post->description = $request['description'];
+        $post->photo = "null";
+
+        $post->save();
+
+        return redirect('/post');
+
     }
 
     /**
@@ -36,7 +51,7 @@ class PostController extends Controller
      */
     public function show(post $post)
     {
-        //
+        return Inertia::render('Post/Show', ['post' => $post]);
     }
 
     /**
@@ -44,7 +59,8 @@ class PostController extends Controller
      */
     public function edit(post $post)
     {
-        //
+
+        return Inertia::render('Post/Update', ['post' => $post]);
     }
 
     /**
@@ -60,6 +76,7 @@ class PostController extends Controller
      */
     public function destroy(post $post)
     {
-        //
+        dump($post);
+        $post->delete();
     }
 }
