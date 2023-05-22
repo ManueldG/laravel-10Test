@@ -38,8 +38,9 @@ class PostController extends Controller
         $post = new Post();
         $post->title = $request['title'];
         $post->description = $request['description'];
-        $post->photo = "null";
 
+
+        $post->photo = $request->file('photo')->store('img');
         $post->save();
 
         return redirect('/post');
@@ -49,7 +50,7 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(post $post)
+    public function show(post $post): \Inertia\Response
     {
         return Inertia::render('Post/Show', ['post' => $post]);
     }
@@ -57,7 +58,7 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(post $post)
+    public function edit(post $post): \Inertia\Response
     {
 
         return Inertia::render('Post/Update', ['post' => $post]);
@@ -68,13 +69,20 @@ class PostController extends Controller
      */
     public function update(Request $request, post $post)
     {
-        //
+
+        $post->title = $request['title'];
+        $post->description = $request['description'];
+
+        $post->photo = $request->file('photo')->store('img');
+        $post->save();
+
+        return redirect('/post');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(post $post)
+    public function destroy(post $post):void
     {
         dump($post);
         $post->delete();

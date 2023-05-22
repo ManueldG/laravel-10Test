@@ -19,10 +19,8 @@ export default function Dashboard({ auth, post }) {
                                 <div>{post.title}</div>
 
                                  <div>{post.description}</div>
-
+                                 {post.photo != "null" ? <img src={"/"+post.photo} alt={post.title} /> :  <br/>}
                             </div>
-
-
 
                     </div>
                 </div>

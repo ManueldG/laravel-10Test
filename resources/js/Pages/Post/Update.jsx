@@ -4,28 +4,39 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 
 export default function Register(auth) {
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, patch , processing, errors } = useForm({
 
         title: auth.post.title,
         description: auth.post.description,
+        photo: auth.post.photo,
 
     });
+
+
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('post.store'));
+        console.log(data);
+        const id = auth.post.id;
+
+        router.post(`/post/${id}`, {
+            _method: 'put',
+            title: data.title,
+            description: data.description,
+            photo: data.photo,
+          })
     };
 
     return (
         <AuthenticatedLayout
             user={auth.auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}>
-            <Head title="new post" />
+            <Head title="update post" />
 
             <form onSubmit={submit}>
                 <div>
@@ -39,13 +50,13 @@ export default function Register(auth) {
                         autoComplete="title"
                         isFocused={true}
                         onChange={(e) => setData('title', e.target.value)}
-                        required
-                    />
 
+                    />
 
                 </div>
 
                 <div className="mt-4">
+
                     <InputLabel htmlFor="decription" value="Description" />
 
                     <TextInput
@@ -56,11 +67,22 @@ export default function Register(auth) {
                         className="mt-1 block w-full"
                         autoComplete="title"
                         onChange={(e) => setData('description', e.target.value)}
-                        required
+
                     />
 
+                </div>
+
+                <div className="mt-4">
+
+                    <InputLabel htmlFor="photo" value="Photo" />
+
+                    <input type="file" id="photo" onChange={e =>
+                        setData('photo', e.target.files[0])}  />
+
+                    {post.photo != "null" ? <img src={"/"+post.photo} alt={post.title} /> :  <br/>}
 
                 </div>
+
 
                 <PrimaryButton>Invia</PrimaryButton>
 

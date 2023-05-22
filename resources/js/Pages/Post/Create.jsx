@@ -7,16 +7,17 @@ import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Register(auth) {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, errors } = useForm({
 
         title: '',
         description: '',
+        photo: '',
 
     });
 
     const submit = (e) => {
         e.preventDefault();
-
+        console.log(e);
         post(route('post.store'));
     };
 
@@ -26,7 +27,7 @@ export default function Register(auth) {
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}>
             <Head title="new post" />
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} >
                 <div>
                     <InputLabel htmlFor="title" value="Title" />
 
@@ -61,9 +62,14 @@ export default function Register(auth) {
                     <InputError message={errors.description} className="mt-2" />
                 </div>
 
+                <input type="file"  onChange={e =>
+                        setData('photo', e.target.files[0])}  />
+
                 <PrimaryButton>Invia</PrimaryButton>
 
             </form>
+
+
         </AuthenticatedLayout>
     );
 }
