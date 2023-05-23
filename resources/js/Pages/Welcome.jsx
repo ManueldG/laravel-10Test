@@ -31,8 +31,12 @@ export default function Welcome({ auth }) {
                         </div>
                     )}
                 </div>
-{auth.user.id}
+                <div className="bg-red-200">
+                    fddfgdfsgfds
+                </div>
             </div>
+
+
 
 
             <style>{`

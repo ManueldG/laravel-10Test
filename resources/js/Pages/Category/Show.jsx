@@ -1,7 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 
-export default function Dashboard({ auth }) {
+export default function Dashboard({ auth, post }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -13,20 +13,18 @@ export default function Dashboard({ auth }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
-                        <div className="p-6 text-gray-900">Welcome </div>
 
-                        <div className="p-6 text-gray-900">
+                            <div className="p-6 text-gray-900">
 
-                            <Link className="rounded-full" href="/post">
-                                Post
-                            </Link>
+                                <div>{post.title}</div>
 
-                        </div>
+                                 <div>{post.description}</div>
+                                 {post.photo != "null" ? <img src={"/"+post.photo} alt={post.title} /> :  <br/>}
+                            </div>
 
                     </div>
                 </div>
             </div>
-
         </AuthenticatedLayout>
     );
 }
