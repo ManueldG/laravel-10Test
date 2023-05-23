@@ -3,7 +3,7 @@ import { Head, useForm, Link } from '@inertiajs/react';
 import DangerButton from '@/Components/DangerButton';
 
 
-export default function Dashboard({ auth,posts }) {
+export default function Dashboard({ auth, categories }) {
 
     const {
             delete: destroy,
@@ -20,7 +20,7 @@ export default function Dashboard({ auth,posts }) {
     };
 
     const path = (id,path = '') => {
-        return "/post/"+id+"/"+path;
+        return "/category/"+id+"/"+path;
     };
 
     return (
@@ -34,16 +34,10 @@ export default function Dashboard({ auth,posts }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
-                        {posts.map( (child,k) =>
+                        {categories.map( (child,k) =>
                             <div key = {k} className="p-6 text-gray-900">
 
-                                <div>{child.title}</div>
-
-                                 <div>{child.description}</div>
-
-                                 <Link className="rounded-full" href={path(child.id)}>
-                                    Show
-                                </Link>
+                                <div>{child.name}</div>
 
                                 <Link href={path(child.id,"edit")}>
                                     Edit

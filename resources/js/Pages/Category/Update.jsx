@@ -8,11 +8,9 @@ import { Head, router, useForm } from '@inertiajs/react';
 
 export default function Register(auth) {
 
-    const { data, setData, post, patch , processing, errors } = useForm({
+    const { data, setData, post , processing, errors } = useForm({
 
-        title: auth.post.title,
-        description: auth.post.description,
-        photo: auth.post.photo,
+        name: auth.category.name,
 
     });
 
@@ -22,13 +20,11 @@ export default function Register(auth) {
         e.preventDefault();
 
         console.log(data);
-        const id = auth.post.id;
+        const id = auth.category.id;
 
-        router.post(`/post/${id}`, {
+        router.post(`/category/${id}`, {
             _method: 'put',
-            title: data.title,
-            description: data.description,
-            photo: data.photo,
+            name: data.name,
           })
     };
 
@@ -40,49 +36,20 @@ export default function Register(auth) {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="title" value="Title" />
+                    <InputLabel htmlFor="name" value="Name" />
 
                     <TextInput
-                        id="title"
-                        name="title"
-                        value={data.title}
+                        id="name"
+                        name="name"
+                        value={data.name}
                         className="mt-1 block w-full"
-                        autoComplete="title"
+                        autoComplete="name"
                         isFocused={true}
-                        onChange={(e) => setData('title', e.target.value)}
+                        onChange={(e) => setData('name', e.target.value)}
 
                     />
 
                 </div>
-
-                <div className="mt-4">
-
-                    <InputLabel htmlFor="decription" value="Description" />
-
-                    <TextInput
-                        id="description"
-                        type="text"
-                        name="description"
-                        value={data.description}
-                        className="mt-1 block w-full"
-                        autoComplete="title"
-                        onChange={(e) => setData('description', e.target.value)}
-
-                    />
-
-                </div>
-
-                <div className="mt-4">
-
-                    <InputLabel htmlFor="photo" value="Photo" />
-
-                    <input type="file" id="photo" onChange={e =>
-                        setData('photo', e.target.files[0])}  />
-
-                    {post.photo != "null" ? <img src={"/"+post.photo} alt={post.title} /> :  <br/>}
-
-                </div>
-
 
                 <PrimaryButton>Invia</PrimaryButton>
 
