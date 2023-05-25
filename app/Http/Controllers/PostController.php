@@ -43,7 +43,10 @@ class PostController extends Controller
 
 
         $post->photo = $request->file('photo')->store('img');
+
         $post->save();
+
+        $post->categories()->sync($request['category']);
 
         return redirect('/post');
 

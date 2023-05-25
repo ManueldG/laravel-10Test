@@ -5,7 +5,7 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import Checkbox from '@/Components/Checkbox';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 
 export default function Register(auth) {
 
@@ -14,15 +14,24 @@ export default function Register(auth) {
         title: '',
         description: '',
         photo: '',
-        category:[]
+        category:[],
 
     });
 
     const submit = (e) => {
-        e.preventDefault();
 
+        e.preventDefault();
+        console.log(route);
         post(route('post.store'));
+
     };
+
+    Array.prototype.remove = function(value) {
+        var index = this.indexOf(value);
+        if (index !== -1) {
+            this.splice(index, 1);
+        }
+    }
 
     return (
         <AuthenticatedLayout
@@ -71,18 +80,27 @@ export default function Register(auth) {
                 <div className="mt-4">
 
 
-                    {auth.categories.map( (item)=>
+                    {auth.categories.map( (item,i)=>
                     <div>
                         <Checkbox
-                        id = "cat"
-                        name = "cat"
+                        id = {"cat"+i}
+                        name = "cat[]"
 
                         onChange={(e) => {
 
-                                console.log("click",item.id);
-                            }   }
+                                let arr = false;
+                                const id = item.id;
+                                arr = document.getElementById("cat" + i).checked  ;
+                                if (arr)
+                                    data.category.push(id);
+                                else
+                                    data.category.remove(id);
+                                console.log(data.category);
+
+                            }
+                           }
                         />
-                        <InputLabel htmlFor="categories" value={item.name} />
+                        <InputLabel htmlFor={"cat" + i} value={item.name} />
                     </div>
 
                     )

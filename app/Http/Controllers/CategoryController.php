@@ -38,6 +38,7 @@ class CategoryController extends Controller
 
         $Category = new Category();
         $Category->name = $request['category'];
+        dump($request);
         $Category->save();
 
         return redirect('/Category');
