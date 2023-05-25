@@ -4,20 +4,23 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
+import Checkbox from '@/Components/Checkbox';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Register(auth) {
+
     const { data, setData, post, errors } = useForm({
 
         title: '',
         description: '',
         photo: '',
+        category:[]
 
     });
 
     const submit = (e) => {
         e.preventDefault();
-        console.log(e);
+
         post(route('post.store'));
     };
 
@@ -64,6 +67,29 @@ export default function Register(auth) {
 
                 <input type="file"  onChange={e =>
                         setData('photo', e.target.files[0])}  />
+
+                <div className="mt-4">
+
+
+                    {auth.categories.map( (item)=>
+                    <div>
+                        <Checkbox
+                        id = "cat"
+                        name = "cat"
+
+                        onChange={(e) => {
+
+                                console.log("click",item.id);
+                            }   }
+                        />
+                        <InputLabel htmlFor="categories" value={item.name} />
+                    </div>
+
+                    )
+                    }
+
+                    <InputError message={errors.description} className="mt-2" />
+                </div>
 
                 <PrimaryButton>Invia</PrimaryButton>
 

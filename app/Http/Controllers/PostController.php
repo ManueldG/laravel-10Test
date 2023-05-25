@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\post;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -25,7 +26,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Post/Create');
+        $categories = Category::all();
+        return Inertia::render('Post/Create',['categories' => $categories]);
 
     }
 
