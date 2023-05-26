@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\post;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
@@ -14,9 +15,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
 
-        return Inertia::render('Post/Index', ['posts' => $posts]);
+        $posts = Post::with('categories')->get();
+
+        return Inertia::render('Post/Index',compact('posts'));
 
 
     }
@@ -34,7 +36,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request):RedirectResponse
     {
 
         $post = new Post();
@@ -57,6 +59,7 @@ class PostController extends Controller
      */
     public function show(post $post): \Inertia\Response
     {
+        dump($post->categories);
         return Inertia::render('Post/Show', ['post' => $post]);
     }
 

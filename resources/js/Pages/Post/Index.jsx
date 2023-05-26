@@ -4,7 +4,7 @@ import DangerButton from '@/Components/DangerButton';
 
 
 export default function Dashboard({ auth,posts }) {
-
+    console.log(posts);
     const {
             delete: destroy,
             errors,

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class post extends Model
+class Post extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class post extends Model
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class,'category_post','post_id', 'category_id');
     }
 
 }
