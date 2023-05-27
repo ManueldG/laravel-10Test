@@ -3,8 +3,8 @@ import { Head, useForm, Link } from '@inertiajs/react';
 import DangerButton from '@/Components/DangerButton';
 
 
-export default function Dashboard({ auth,posts }) {
-    console.log(posts);
+export default function Dashboard({ auth, posts }) {
+
     const {
             delete: destroy,
             errors,
@@ -19,7 +19,7 @@ export default function Dashboard({ auth,posts }) {
         destroy(route('post.destroy',id));
     };
 
-    const path = (id,path = '') => {
+    const path = ( id, path = '') => {
         return "/post/"+id+"/"+path;
     };
 
@@ -41,15 +41,15 @@ export default function Dashboard({ auth,posts }) {
 
                                  <div>{child.description}</div>
 
-                                 <Link className="rounded-full" href={path(child.id)}>
+                                 <Link className="rounded-lg bg-lime-500 p-2 leading-10" href={path(child.id)}>
                                     Show
                                 </Link>
 
-                                <Link href={path(child.id,"edit")}>
+                                <Link className="rounded-lg bg-lime-500 p-2 leading-10 mx-2" href={path(child.id,"edit")}>
                                     Edit
                                 </Link>
 
-                                 <form onSubmit={submit} >
+                                 <form onSubmit={submit} className='inline-block'>
                                     <DangerButton >Delete</DangerButton>
                                     <input type="hidden" name="id" value={child.id} />
                                 </form>

@@ -4,24 +4,36 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
+import Checkbox from '@/Components/Checkbox';
 import { Head, router, useForm } from '@inertiajs/react';
 
 export default function Register(auth) {
 
-    const { data, setData, post, patch , processing, errors } = useForm({
+    const { data, setData, post, processing, errors } = useForm({
 
         title: auth.post.title,
         description: auth.post.description,
         photo: auth.post.photo,
+        categories: auth.post.categories,
+        list: auth.categories,
+        checked: [false,false,false,false] ,
 
     });
 
+    const check = (val) => data.categories.forEach( (elem,i) =>  {
+
+        let newArr = [...data.checked];
+        newArr[val.id-1] = (elem.id==val.id) ? true : newArr[val.id-1] ;
+        data.checked = newArr
+
+        return data.checked[val.id-1]
+        }
+        )
 
 
     const submit = (e) => {
         e.preventDefault();
 
-        console.log(data);
         const id = auth.post.id;
 
         router.post(`/post/${id}`, {
@@ -31,6 +43,8 @@ export default function Register(auth) {
             photo: data.photo,
           })
     };
+
+
 
     return (
         <AuthenticatedLayout
@@ -79,10 +93,45 @@ export default function Register(auth) {
                     <input type="file" id="photo" onChange={e =>
                         setData('photo', e.target.files[0])}  />
 
-                    {post.photo != "null" ? <img src={"/"+post.photo} alt={post.title} /> :  <br/>}
+                    {post.photo != "null" ? <img src={"/"+data.photo} alt={data.title} /> :  <br/>}
 
                 </div>
 
+
+
+                    <div>{data.list.map((cat) =>{
+                        check(cat)
+                        return(
+                        <div key={cat.id}>
+
+                        <Checkbox
+                        id = {"cat" + cat.id}
+                        name = "cat[]"
+                        defaultChecked={ data.checked[cat.id-1] }
+
+
+                        onChange={(e) => {
+                                /*
+                                let arr = false;
+                                const id = cat.id;
+                                arr = document.getElementById("cat" + id).checked;
+
+                                if (arr)
+                                    data.category.push(id);
+                                else
+                                    data.category.remove(id);
+                            */
+                            }
+                           }
+                        />
+
+
+                        <InputLabel htmlFor={"cat" + cat.id} value={cat.name} />
+                    </div>)
+                    }
+                        )}
+
+                        </div>
 
                 <PrimaryButton>Invia</PrimaryButton>
 

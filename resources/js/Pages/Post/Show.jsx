@@ -21,6 +21,18 @@ export default function Dashboard({ auth, post }) {
 
                                  <div>{post.description}</div>
                                  {post.photo != "null" ? <img src={"/"+post.photo} alt={post.title} /> :  <br/>}
+
+                                 {
+                                 post.categories != []
+                                    ? <div>{post.categories.map(cat =>
+
+                                        <div key={cat.id}> {" "+cat.name+" "} </div>)}
+
+                                    </div>
+
+                                    :  <br/>
+                                 }
+
                             </div>
 
                     </div>

@@ -59,7 +59,7 @@ class PostController extends Controller
      */
     public function show(post $post): \Inertia\Response
     {
-        dump($post->categories);
+        $post->categories;
         return Inertia::render('Post/Show', ['post' => $post]);
     }
 
@@ -68,8 +68,9 @@ class PostController extends Controller
      */
     public function edit(post $post): \Inertia\Response
     {
-
-        return Inertia::render('Post/Update', ['post' => $post]);
+        $post->categories;
+        $categories = Category::all();
+        return Inertia::render('Post/Update', ['post' => $post,'categories' => $categories]);
     }
 
     /**
