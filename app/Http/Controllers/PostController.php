@@ -95,10 +95,12 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(post $post):void
+    public function destroy(post $post):RedirectResponse
     {
-        dump($post);
+        $post->categories();
         $post->delete();
+
+        return redirect('/post');
 
     }
 }
