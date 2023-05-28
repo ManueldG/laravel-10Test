@@ -15,8 +15,9 @@ export default function Register(auth) {
         description: auth.post.description,
         photo: auth.post.photo,
         categories: auth.post.categories,
+        category: [],
         list: auth.categories,
-        checked: [false,false,false,false] ,
+        checked: [false,false,false,false],
 
     });
 
@@ -36,11 +37,14 @@ export default function Register(auth) {
 
         const id = auth.post.id;
 
+        console.log(data);
+
         router.post(`/post/${id}`, {
             _method: 'put',
             title: data.title,
             description: data.description,
             photo: data.photo,
+            category: data.category,
           })
     };
 
@@ -111,7 +115,7 @@ export default function Register(auth) {
 
 
                         onChange={(e) => {
-                                /*
+
                                 let arr = false;
                                 const id = cat.id;
                                 arr = document.getElementById("cat" + id).checked;
@@ -120,7 +124,7 @@ export default function Register(auth) {
                                     data.category.push(id);
                                 else
                                     data.category.remove(id);
-                            */
+
                             }
                            }
                         />

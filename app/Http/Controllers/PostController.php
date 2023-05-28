@@ -80,10 +80,14 @@ class PostController extends Controller
     {
 
         $post->title = $request['title'];
-        $post->description = $request['description'];
 
+        $post->description = $request['description'];
+        if($request->file('photo'))
         $post->photo = $request->file('photo')->store('img');
+
         $post->save();
+
+        $post->categories()->sync($request['category']);
 
         return redirect('/post');
     }
@@ -95,5 +99,6 @@ class PostController extends Controller
     {
         dump($post);
         $post->delete();
+
     }
 }
