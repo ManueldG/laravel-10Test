@@ -31,14 +31,26 @@ export default function Register(auth) {
         }
         )
 
+    const update  = (val) => {
+
+            let arr = false;
+            const id = val.id;
+            arr = document.getElementById("cat" + id).checked;
+
+            if (arr)
+                data.category.push(id);
+
+
+            console.log(data,id);
+    }
 
     const submit = (e) => {
         e.preventDefault();
 
         const id = auth.post.id;
 
-        console.log(data);
 
+        data.list.map((cat)=>update(cat))
         router.post(`/post/${id}`, {
             _method: 'put',
             title: data.title,
@@ -101,10 +113,10 @@ export default function Register(auth) {
 
                 </div>
 
-
-
                     <div>{data.list.map((cat) =>{
+
                         check(cat)
+
                         return(
                         <div key={cat.id}>
 
@@ -116,14 +128,7 @@ export default function Register(auth) {
 
                         onChange={(e) => {
 
-                                let arr = false;
-                                const id = cat.id;
-                                arr = document.getElementById("cat" + id).checked;
-
-                                if (arr)
-                                    data.category.push(id);
-                                else
-                                    data.category.remove(id);
+                                update(cat);
 
                             }
                            }
