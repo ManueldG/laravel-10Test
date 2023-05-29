@@ -6,7 +6,7 @@ export default function Dashboard({ auth, post }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Show post n {post.id}</h2>}
         >
             <Head title="Dashboard" />
 
@@ -20,7 +20,9 @@ export default function Dashboard({ auth, post }) {
                                 <div>{post.title}</div>
 
                                  <div>{post.description}</div>
-                                 {post.photo != "null" ? <img src={"/"+post.photo} alt={"immagine relativa a " + post.title} /> :  <br/>}
+
+                                 {post.photo != "null" ? <img src={"/"+post.photo} className=""  alt={"immagine relativa a " + post.title} /> :  <br/>}
+
                                  <div>{post.categories.map((elem)=>elem.name)}</div>
                             </div>
 

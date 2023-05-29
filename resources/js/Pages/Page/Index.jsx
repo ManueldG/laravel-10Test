@@ -18,7 +18,7 @@ export default function Dashboard({ auth,posts }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Posts</h2>}
         >
             <Head title="Dashboard" />
 
@@ -33,7 +33,7 @@ export default function Dashboard({ auth,posts }) {
 
                                  <div>{child.description}</div>
 
-                                 <Link className="rounded-full" href={path(child.id)}>
+                                 <Link className="rounded-full bg-sky-500 px-5" href={path(child.id)}>
                                     Show
                                 </Link>
 
