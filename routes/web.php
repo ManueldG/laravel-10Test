@@ -19,12 +19,12 @@ use App\Http\Controllers\CategoryController;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
+Route::get('/', [PageController::class,'index'], [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
     ]);
-});
+
+    Route::get('/page/{id}', [PageController::class,'show']);
 
 
 
@@ -47,6 +47,5 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::resource('page',PageController::class);
 
 require __DIR__.'/auth.php';

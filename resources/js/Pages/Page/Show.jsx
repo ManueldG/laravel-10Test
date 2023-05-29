@@ -2,6 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 
 export default function Dashboard({ auth, post }) {
+    console.log(post.categories);
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -19,7 +20,8 @@ export default function Dashboard({ auth, post }) {
                                 <div>{post.title}</div>
 
                                  <div>{post.description}</div>
-                                 {post.photo != "null" ? <img src={"/"+post.photo} alt={post.title} /> :  <br/>}
+                                 {post.photo != "null" ? <img src={"/"+post.photo} alt={"immagine relativa a " + post.title} /> :  <br/>}
+                                 <div>{post.categories.map((elem)=>elem.name)}</div>
                             </div>
 
                     </div>

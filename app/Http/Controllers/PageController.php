@@ -19,6 +19,8 @@ class PageController extends Controller
 
         $post = Post::find($id);
 
+        $post->categories;
+
         return Inertia::render('Page/Show', ['post' => $post]);
 
     }
